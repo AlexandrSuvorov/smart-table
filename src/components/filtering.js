@@ -18,22 +18,12 @@ export function initFiltering(elements, indexes) {
   });
   return (data, state, action) => {
     // @todo: #4.2 — обработать очистку поля
-    if (action?.type === "click" && action.name === "clear") {
-      const button = action.target;
-      const field = button.dataset.field;
-
-      // ищем input в родителе кнопки
-      const parent = button.parentElement;
-      const input = parent.querySelector("input");
-
-      if (input) {
-        input.value = "";
-      }
-
-      // сбрасываем соответствующее поле в state
-      if (field && field in state) {
-        state[field] = "";
-      }
+    if (action) {
+      const input = document.querySelector(
+        'input[name="' + action.dataset.field + '"]',
+      );
+      input.value = "";
+      state[action.dataset.field] = "";
     }
 
     // @todo: #4.5 — отфильтровать данные используя компаратор
